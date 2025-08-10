@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
@@ -122,5 +123,21 @@ public class DishServiceImpl implements DishService {
         //插入具体口味
         dishFlavorMapper.insertBatch(flavors);
 
+    }
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public List<DishVO> list(Long categoryId) {
+        Dish dish =Dish.builder()
+                .categoryId(categoryId)
+//                避免获取停售的菜品
+                .status(StatusConstant.ENABLE)
+                .build();
+
+        return dishMapper.list(dish);
     }
 }
