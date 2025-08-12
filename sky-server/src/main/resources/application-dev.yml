@@ -12,3 +12,11 @@ sky:
     access-key-id: ${OSS_ACCESS_KEY_ID}
     access-key-secret: ${OSS_ACCESS_KEY_SECRET}
     bucket-name: javaweb-aip1
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    #没有设置密码的话不需要设置
+#    password: 123456
+    #默认是10
+    database: 10
