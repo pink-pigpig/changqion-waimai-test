@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "店铺相关接口")
 @Slf4j
 public class ShopController {
+    public static final String KEY = "SHOP_STATUS";
     @Autowired
     RedisTemplate redisTemplate;
-    public static final String KEY = "SHOP_STATUS";
+
 
     /**
      * 设置营业状态
@@ -25,7 +26,7 @@ public class ShopController {
     @PutMapping("/{status}")
     @ApiOperation("设置营业状态")
     public Result setStatus(@PathVariable Integer status){
-        log.info("设置营业状态:{}",status==1?"营业中":"打烊中");
+        log.info("设置营业状态为:{}",status==1?"营业中":"打烊中");
         redisTemplate.opsForValue().set(KEY,status);
         return Result.success();
     }
