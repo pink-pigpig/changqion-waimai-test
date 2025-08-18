@@ -20,3 +20,7 @@ sky:
 #    password: 123456
     #默认是10
     database: 10
+
+  wechat:
+    appid: wxb07e79110e172484
+    secret: 177ea8ebda9bdf45575d48c7cc2d9b3b

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +32,7 @@ public class DishServiceImpl implements DishService {
     @Autowired
     SetmealDishMapper setmealDishMapper;
 
-    /*
+    /**
     * 新增菜品
     * @param dishDTO
      */
@@ -87,10 +88,15 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.deleteByDishId(id);//后绪步骤实现
         }
     }
+    /**
+     * 根据id查询菜品和对应的口味
+     * @param id
+     * @return
+     */
     @Override
     public DishVO getByIdWithFlavors(Long id) {
         Dish dish = dishMapper.getById(id);
-        List<DishFlavor> list = dishFlavorMapper.getByIdWithFlavors(id);
+        List<DishFlavor> list = dishFlavorMapper.getByDishId(id);
 
         DishVO dishVO = new DishVO();
         BeanUtils.copyProperties(dish,dishVO);
@@ -131,7 +137,7 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     @Override
-    public List<DishVO> list(Long categoryId) {
+    public List<Dish> list(Long categoryId) {
         Dish dish =Dish.builder()
                 .categoryId(categoryId)
 //                避免获取停售的菜品
@@ -140,4 +146,28 @@ public class DishServiceImpl implements DishService {
 
         return dishMapper.list(dish);
     }
+    /**
+     * 条件查询菜品和口味
+     * @param dish
+     * @return
+     */
+    public List<DishVO> listWithFlavor(Dish dish) {
+        List<Dish> dishList = dishMapper.list(dish);
+
+        List<DishVO> dishVOList = new ArrayList<>();
+
+        for (Dish d : dishList) {
+            DishVO dishVO = new DishVO();
+            BeanUtils.copyProperties(d,dishVO);
+
+            //根据菜品id查询对应的口味
+            List<DishFlavor> flavors = dishFlavorMapper.getByDishId(d.getId());
+
+            dishVO.setFlavors(flavors);
+            dishVOList.add(dishVO);
+        }
+
+        return dishVOList;
+    }
+
 }

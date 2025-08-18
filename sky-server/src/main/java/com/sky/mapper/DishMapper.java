@@ -57,7 +57,7 @@ public interface DishMapper {
     @AutoFill(OperationType.UPDATE)
     void update(Dish dish);
 
-    List<DishVO> list(Dish dish);
+    List<Dish> list(Dish dish);
     /**
      * 根据套餐id查询菜品
      * @param setmealId
