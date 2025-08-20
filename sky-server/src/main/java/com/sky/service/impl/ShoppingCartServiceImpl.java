@@ -82,5 +82,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
                 build());
     }
 
+    /**
+     * 清空购物车商品
+     */
+    @Override
+    public void cleanShoppingCart() {
+        shoppingCartMapper.deleteByUserId(BaseContext.getCurrentId());
+    }
+
 
 }
