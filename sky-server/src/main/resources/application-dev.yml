@@ -24,3 +24,11 @@ sky:
   wechat:
     appid: ${WECHAT_APPID}
     secret: ${WECHAT_SECRET}
+#    以下数据皆为模拟数据，具体的数据请根据微信支付官方文档进行操作获取。
+    mchid: 1223456789
+    mchSerialNo: 123JKL123KL123JK123MN12
+    privateKeyFilePath: D:\123123.pem
+    apiV3Key: CZBK123123wxpay123123FFDuv3
+    weChatPayCertFilePath: D:\123123.pem
+    notifyUrl: https://www.weixin.qq.com/wxpay/pay.php
+    refundNotifyUrl: https://www.weixin.qq.com/wxpay/pay.php
